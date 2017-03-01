@@ -2,10 +2,39 @@
   <head>
     <meta charset="utf-8">
     <title>Sahagin Test Report</title>
+    <link href="./css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css" />
+    <link href="./css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+    <link href="./css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+    <link href="./css/jquery.bxslider.css" rel="stylesheet" type="text/css" />
+    <link href="./css/report.css" rel="stylesheet" type="text/css" />
   </head>
   <body style="background-color: #fcfcff">
-  #foreach( $reportLink in $reportLinks )
-    <a href="${reportLink.getPath()}" title="${reportLink.getTitle()}">${reportLink.getTitle()}</a><br/>
-  #end
+
+<div class="sg-main-inner">
+
+<div>Last Executed: $now</div>
+
+<table border="1" cellpadding="1" cellspacing="1" id="script_table" class="treetable large">
+<thead>
+	<tr>
+		<th>Test Spec</th>
+		<th>Result</th>
+	</tr>
+</thead>
+<tbody>
+
+#foreach( $reportLink in $reportLinks )
+	<tr data-tt-id="0" data-image-id="0" data-method-key="" class="successLine">
+		<td><a href="${reportLink.path}" title="${reportLink.getTitle()}">${reportLink.title}</a></td>
+		<td>${reportLink.result}</td>
+	</tr>
+#end
+
+
+</tbody>
+</table>
+
+</div>
+
   </body>
 </html>

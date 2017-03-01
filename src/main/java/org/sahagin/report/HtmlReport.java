@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
@@ -559,6 +561,7 @@ public class HtmlReport {
                 escapePut(methodContext, "errLineTtId", "");
             } else {
                 escapePut(methodContext, "errMsg", runFailure.getMessage().trim());
+                escapePut(methodContext, "stackTrace", runFailure.getStackTrace());
                 escapePut(methodContext, "errLineTtId", generateTtId(runFailure.getStackLines()));
             }
 
@@ -590,12 +593,22 @@ public class HtmlReport {
             String reportLinkPath = CommonUtils.relativize(methodReportFile, reportMainDir).getPath();
             // URL separator is always slash regardless of OS type
             reportLink.setPath(FilenameUtils.separatorsToUnix(reportLinkPath));
+            
+			if (runFailure != null) {
+				reportLink.setResult("Failure");
+			} else if (runResult != null) {
+				reportLink.setResult("Success");
+			} else {
+				reportLink.setResult("-");
+			}
+			
             reportLinks.add(reportLink);
         }
         // TODO HTML encode all codeBody, captures, reportLinks values
 
         // generate main index.html report
         VelocityContext mainContext = new VelocityContext();
+        mainContext.put("now", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm"));
         mainContext.put("reportLinks", reportLinks);
         generateVelocityOutput(mainContext, "/template/index.html.vm",
                 CommonPath.htmlReportMainFile(reportOutputDir));

@@ -121,3 +121,14 @@ body {
 #localeData {
   display: none;
 }
+
+.sg-main-inner {
+	width: 1155px;
+	margin: 0 auto;
+	padding: 0 30px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+

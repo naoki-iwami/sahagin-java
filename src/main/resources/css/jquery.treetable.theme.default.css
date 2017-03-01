@@ -7,6 +7,15 @@ table.treetable {
   width: 100%;
 }
 
+table.treetable.large {
+  border: 1px solid #888;
+  border-collapse: collapse;
+  font-size: .8em; /* original value is 9em */
+  line-height: 1;
+  margin: .6em 0 1.8em 0;
+  width: 100%;
+}
+
 table.treetable caption {
   font-size: .7em; /* original value is 9em */
   font-weight: bold;

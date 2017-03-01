@@ -101,7 +101,7 @@
           <div id="err_msg_container">
             [Error]
             <br />
-            <span id="err_msg">${errMsg}</span>
+            <span id="err_msg"><pre>${errMsg}</pre><br /><pre>${stackTrace}</pre></span>
           </div>
           #end
         </div>
@@ -112,7 +112,7 @@
           #foreach( $capture in $captures )
           <li>
             <div data-image-id="${capture.getImageId()}" data-image-width="${capture.getImageWidth()}" data-image-height="${capture.getImageHeight()}" class="scrollContainer">
-              <img src="${capture.getPath()}" />
+              <a target="_blank" href="${capture.getPath()}"><img src="${capture.getPath()}" /></a>
             </div>
           </li>
           #end
